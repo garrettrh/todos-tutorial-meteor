@@ -8,8 +8,44 @@ Tasks = new Mongo.Collection("tasks");
 if (Meteor.isClient) {
   // This code only runs on the client
   Template.body.helpers({
+    // calling the function "tasks"
     tasks: function() {
-      return Tasks.find({});
+      // finds all the tasks, added "sort" to arrange by the createdAt value below in insert event
+      return Tasks.find({}, { sort: {createdAt: -1}});
+    }
+  });
+
+// Adding Event Listener to Template, same as adding Helpers
+// Template.templateName.events(...)
+// Keys describe event to listen for...
+// Values are event handlers called when even happens
+// Function listening to the "submit" event on the form button
+  Template.body.events({
+    // listening for "submit" action on any CSS Class "new-task"
+    "submit .new-task": function(event) {
+
+      // function gets called when new task form gets submitted
+      // "event.target" is form element
+      // "event.target.text.value" gets text value from input
+      var text = event.target.text.value;
+
+      // can "console.log(event)" to get event value
+
+      // Inserts the text inputed into the Tasks Collection (defined on line 6)
+      Tasks.insert({
+        // Anything can be added, since schema doesn't have to be defined (noSQL)
+        text: text,
+
+          // adds the current time of insert to the new object
+        createdAt: new Date()
+
+      });
+
+      // Clears form with empty string
+      event.target.text.value = "";
+
+      // Prevent default form submit
+      return false;
     }
   });
 }
@@ -19,7 +55,7 @@ if (Meteor.isClient) {
 
 
 
-// Below Array is commented out in favor of Collection above
+// Below Array is commented out in favor of Collection in a real DB (Mongo) at top
 
   // passing in a helper to the body called "tasks"
   // Template.body.helpers({
