@@ -1,14 +1,32 @@
 <head>
-  <title>simple-todos-tutorial</title>
+  <title>Todo List</title>
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
+  <div class="container">
+    <header>
+      <h1>Todo List</h1>
+    </header>
 
-  {{> hello}}
+    <ul>
+    <!-- "#" and '>' are examples of Meteor Spacebars compilers (inspired by Handelbars) -->
+    <!-- add logic and data to views -->
+    <!-- Spacebars Readme: https://github.com/meteor/meteor/blob/devel/packages/spacebars/README.md -->
+      {{#each tasks}}
+      <!-- #each grabs each task in tasks -->
+      <!-- >task presents the task and iterates through them -->
+        {{> task}}
+      <!-- ending #each -->
+      {{/each}}
+    </ul>
+  </div>
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<!-- <template> tags are compiled into meteor templates -->
+<!-- can be used inside HTML w/ {{ template name }} (creating "task" template here) -->
+<!-- can be referenced inside js with Template."templateName" -->
+<template name="task">
+
+  <!-- displaying "text" property of "task" in JS array -->
+  <li>{{text}}</li>
 </template>

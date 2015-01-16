@@ -1,23 +1,33 @@
+
+// Collections store persistent data both client & server side
+// sets up mongoDB collection on server
+// sets up cache connected to server on client
+// just call "CollectionName = new Mongo.Collection('collection-name');"
+Tasks = new Mongo.Collection("tasks");
+
 if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault("counter", 0);
-
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get("counter");
-    }
-  });
-
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set("counter", Session.get("counter") + 1);
+  // This code only runs on the client
+  Template.body.helpers({
+    tasks: function() {
+      return Tasks.find({});
     }
   });
 }
 
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
-  });
-}
+
+
+
+
+
+// Below Array is commented out in favor of Collection above
+
+  // passing in a helper to the body called "tasks"
+  // Template.body.helpers({
+    // creating an array of tasks to use in view
+//     tasks: [
+//       { text: "This is task 1" },
+//       { text: "This is task 2" },
+//       { text: "This is task 3" }
+//     ]
+//   });
+// }
