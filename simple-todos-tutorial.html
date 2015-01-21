@@ -14,6 +14,7 @@
     </header>
 
     <ul>
+
     <!-- "#" and '>' are examples of Meteor Spacebars compilers (inspired by Handelbars) -->
     <!-- add logic and data to views -->
     <!-- Spacebars Readme: https://github.com/meteor/meteor/blob/devel/packages/spacebars/README.md -->
@@ -33,5 +34,29 @@
 <template name="task">
 
   <!-- displaying "text" property of "task" in JS array -->
-  <li>{{text}}</li>
+  <!-- updated to add checkboxes for deleting -->
+  <!-- <li>{{text}}</li> -->
+
+  <!-- deleting items -->
+
+  <!-- this line allows us to make checked tasks look different in CSS code -->
+  <!-- currently set to true, but is set to false by default in JS -->
+  <li class="{{#if checked}}checked{{/if}}">
+  
+  	<!-- calls "delete" class function in JS -->
+  	<button class="delete">&times;</button>
+	
+	<!-- adding checkbox and status set to checked, gives class to toggle -->
+  	<input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+  	<!-- the text from each task collection -->
+  	<span class="text">{{ text }}</span>
+  </li>
+
 </template>
+
+
+
+
+
+
+

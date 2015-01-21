@@ -48,6 +48,24 @@ if (Meteor.isClient) {
       return false;
     }
   });
+
+  Template.task.events({
+    // 
+    "click .toggle-checked": function () {
+      // setting property to opposite of current value
+      // "update" takes two arguments, the selector of subset of collection, and what to happen to matched objects
+      Tasks.update(this._id, {$set: {checked: ! this.checked}});
+      // "$set" toggles checked field
+    },
+
+    // deletes task when run on button
+    "click .delete": function () {
+      // "remove" takes one argument, the selector
+      Tasks.remove(this._id);
+    }
+  });
+
+
 }
 
 
