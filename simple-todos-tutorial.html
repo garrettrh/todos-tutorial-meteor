@@ -5,11 +5,11 @@
 <body>
   <div class="container">
     <header>
-      <h1>Todo List</h1>
+      <h1>Twin's Todo List</h1>
 
       <!-- adding to-do entry form below h1 -->
       <form class="new-task">
-      	<input type="text" name="text" placeholder="Add something To Do!" />
+      	<input type="text" name="text" placeholder="What needs to get done?" />
       </form>
     </header>
 
@@ -42,7 +42,7 @@
   <!-- this line allows us to make checked tasks look different in CSS code -->
   <!-- currently set to true, but is set to false by default in JS -->
   <li class="{{#if checked}}checked{{/if}}">
-  
+
   	<!-- calls "delete" class function in JS -->
   	<button class="delete">&times;</button>
 	
