@@ -5,7 +5,13 @@
 <body>
   <div class="container">
     <header>
-      <h1>Twin's Todo List</h1>
+    	<!-- Added incompleteCount to display number of remaining To-Dos -->
+      <h1>Twin's Todo List - {{ incompleteCount }}</h1>
+      <!-- adding checkbox to hide completed todos -->
+      	<label class="hide-completed">
+      		<input type="checkbox" checked="{{hideCompleted}}" />
+      		Hide Completed Todos - Check Me!
+      	</label>
 
       <!-- adding to-do entry form below h1 -->
       <form class="new-task">

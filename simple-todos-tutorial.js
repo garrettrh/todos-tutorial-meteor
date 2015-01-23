@@ -9,9 +9,30 @@ if (Meteor.isClient) {
   // This code only runs on the client
   Template.body.helpers({
     // calling the function "tasks"
-    tasks: function() {
+    // commented out to add checkbox if/else block below to remove completed tasks instead of returning all
+    // tasks: function() {
       // finds all the tasks, added "sort" to arrange by the createdAt value below in insert event
-      return Tasks.find({}, { sort: {createdAt: -1}});
+      // return Tasks.find({}, { sort: {createdAt: -1}});
+    // }
+    tasks: function() {
+      // "Session" is reactive data state for Client side, not connected to server
+      // Perfect place for temporary UI states like checkboxes
+      // Call "Session.get..." whatever you want
+      if (Session.get("hideCompleted")) {
+        // if hide-completed is checked, filter if any are checked is true
+        return Tasks.find({ checked: {$ne: true}}, {sort: {createdAt: -1}});
+      } else {
+        // if it's not checked, keep it like before and return all the tasks
+        return Tasks.find({}, { sort: {createdAt: -1}});
+      }
+    },
+    hideCompleted: function () {
+      return Session.get("hideCompleted");
+    },
+    // adding function to count number of not completed to-dos
+    incompleteCount: function() {
+      // return any unfinished tasks and count them
+      return Tasks.find({ checked: {$ne: true}}).count()
     }
   });
 
@@ -46,6 +67,11 @@ if (Meteor.isClient) {
 
       // Prevent default form submit
       return false;
+      // missing comma below '},' caused an error, make sure to close out "action .class" function blocks with comma
+    },
+    // Adding Event Handler to update Session variable based on if hide task box is checked or unchecked
+    "change .hide-completed input": function (event) {
+      Session.set("hideCompleted", event.target.checked);
     }
   });
 
