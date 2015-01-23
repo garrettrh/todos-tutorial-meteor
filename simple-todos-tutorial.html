@@ -12,11 +12,20 @@
       		<input type="checkbox" checked="{{hideCompleted}}" />
       		Hide Completed Todos - Check Me!
       	</label>
+      	<!-- adding login buttons -->
+      	<!-- have to run 'meteor add accounts-ui accounts-password' in directory to update/install login packages -->
+      	<p>{{> loginButtons }}</p>
+      	<!-- can also add Facebook with accounts-facebook; research other auths -->
 
+      	<!-- adding "if" conditional to only show new task input if user logged in -->
+      	<!-- "currentUser" is built in helper like Rails helper, can use currentUser.username, etc, to get info on User -->
+      {{#if currentUser}}
       <!-- adding to-do entry form below h1 -->
       <form class="new-task">
       	<input type="text" name="text" placeholder="What needs to get done?" />
       </form>
+      {{/if}}
+
     </header>
 
     <ul>
@@ -55,7 +64,7 @@
 	<!-- adding checkbox and status set to checked, gives class to toggle -->
   	<input type="checkbox" checked="{{checked}}" class="toggle-checked" />
   	<!-- the text from each task collection -->
-  	<span class="text">{{ text }}</span>
+  	<span class="text"><strong>{{username}}</strong>Task: {{ text }}</span>
   </li>
 
 </template>

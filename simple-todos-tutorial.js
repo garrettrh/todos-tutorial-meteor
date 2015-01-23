@@ -58,8 +58,13 @@ if (Meteor.isClient) {
         text: text,
 
           // adds the current time of insert to the new object
-        createdAt: new Date()
+        createdAt: new Date(),
 
+        // _id of logged in user - Meteor returns the _id of currentUser with .userId()
+        owner: Meteor.userId(),
+
+        // username of logged in user - Meteor returns whole currentUser document with .user()
+        username: Meteor.user().username
       });
 
       // Clears form with empty string
@@ -90,7 +95,10 @@ if (Meteor.isClient) {
       Tasks.remove(this._id);
     }
   });
-
+    // adding code to allow log in by username instead of e-mail
+    Accounts.ui.config({
+      passwordSignupFields: "USERNAME_ONLY"
+    });
 
 }
 
